@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat_app/components/my_textfield.dart';
+import 'package:my_chat_app/components/my_elev_button.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -6,6 +8,14 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+        ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,47 +32,30 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: const MyTextField(text: 'Enter your e-mail', isItObscure: false,),
+              child: const MyTextField(
+                text: 'Enter your e-mail',
+                isItObscure: false,
+              ),
             ),
             const SizedBox(
               height: 25,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: const MyTextField(text: 'Enter your password', isItObscure: true,),
+              child: const MyTextField(
+                text: 'Enter your password',
+                isItObscure: true,
+              ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            const MyElevatedButton(
+              text: 'Log in',
+              routeName: '/chat',
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MyTextField extends StatelessWidget {
-  const MyTextField({Key? key, required this.text, required this.isItObscure}) : super(key: key);
-  final String text;
-  final bool isItObscure;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      obscureText: isItObscure,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 15,
-      ),
-      textAlign: TextAlign.center,
-      decoration: InputDecoration(
-        hintText: text,
-        hintStyle: const TextStyle(
-          color: Colors.grey,
-          fontSize: 15,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        filled: true,
-        fillColor: Colors.grey[100],
       ),
     );
   }
