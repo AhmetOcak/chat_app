@@ -20,11 +20,13 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Hero(
-              tag: 'logo',
-              child: SizedBox(
-                child: Image.asset('assets/images/falling-star.png'),
-                height: MediaQuery.of(context).size.height / 4,
+            Flexible(
+              child: Hero(
+                tag: 'logo',
+                child: SizedBox(
+                  child: Image.asset('assets/images/falling-star.png'),
+                  height: MediaQuery.of(context).size.height / 4,
+                ),
               ),
             ),
             const SizedBox(

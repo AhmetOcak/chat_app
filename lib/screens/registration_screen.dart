@@ -8,6 +8,7 @@ class RegisterionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -20,11 +21,13 @@ class RegisterionScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Hero(
-              tag: 'logo',
-              child: SizedBox(
-                child: Image.asset('assets/images/falling-star.png'),
-                height: MediaQuery.of(context).size.height / 4,
+            Flexible(
+              child: Hero(
+                tag: 'logo',
+                child: SizedBox(
+                  child: Image.asset('assets/images/falling-star.png'),
+                  height: MediaQuery.of(context).size.height / 4,
+                ),
               ),
             ),
             const SizedBox(
