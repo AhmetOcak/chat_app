@@ -11,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   String email = '';
   String password = '';
@@ -19,12 +21,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
+        backgroundColor: backgroundColor,
+        shadowColor: secondaryColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back_ios_rounded),
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: secondaryColor,
+          ),
         ),
       ),
       body: Center(
@@ -46,19 +54,19 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
               child: TextField(
+                controller: _emailController,
                 onChanged: (value) {
                   email = value;
                 },
                 decoration: textFieldDecoration.copyWith(
-                  hintText: 'Enter your email ...',
+                  hintText: 'Enter your email',
                 ),
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: backgroundColor,
                   fontSize: 15,
                 ),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
               ),
             ),
             const SizedBox(
@@ -67,18 +75,20 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
               child: TextField(
+                controller: _passwordController,
                 onChanged: (value) {
                   password = value;
                 },
                 decoration: textFieldDecoration.copyWith(
-                  hintText: 'Enter your password ...',
+                  hintText: 'Enter your password',
                 ),
                 style: const TextStyle(
-                  color: Colors.black,
+                  color: backgroundColor,
                   fontSize: 15,
                 ),
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
               ),
             ),
             const SizedBox(
@@ -101,6 +111,31 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 } catch (e) {
                   setState(() {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Error'),
+                        content: Text(
+                          e.toString().substring(e.toString().indexOf(']') + 1,
+                              e.toString().length),
+                        ),
+                        backgroundColor: errorColor,
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _emailController.clear();
+                              _passwordController.clear();
+                            },
+                            child: const Text(
+                              'Ok',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                     isLoading = false;
                   });
                 }
@@ -108,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text(
                 'Log in',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: backgroundColor,
                 ),
               ),
               style: buttonStyle,
@@ -118,9 +153,12 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
-              child: isLoading ? const LinearProgressIndicator(
-                color: Colors.blue,
-              ) : Container(),
+              child: isLoading
+                  ? const LinearProgressIndicator(
+                      color: secondaryColor,
+                      backgroundColor: Colors.black54,
+                    )
+                  : Container(),
             ),
           ],
         ),

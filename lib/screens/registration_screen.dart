@@ -11,6 +11,8 @@ class RegisterionScreen extends StatefulWidget {
 
 class _RegisterionScreenState extends State<RegisterionScreen> {
   final _auth = FirebaseAuth.instance;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   String email = '';
   String password = '';
@@ -19,7 +21,10 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
+        backgroundColor: backgroundColor,
+        shadowColor: secondaryColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -101,6 +106,31 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
                   }
                 } catch (e) {
                   setState(() {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                        title: const Text('Error'),
+                        content: Text(
+                          e.toString().substring(e.toString().indexOf(']') + 1,
+                              e.toString().length),
+                        ),
+                        backgroundColor: errorColor,
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              _emailController.clear();
+                              _passwordController.clear();
+                            },
+                            child: const Text(
+                              'Ok',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                     isLoading = false;
                   });
                 }
@@ -108,20 +138,23 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
               child: const Text(
                 'Register',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: backgroundColor,
                 ),
               ),
               style: buttonStyle,
             ),
             const SizedBox(
-              height: 15,
+              height: 25,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: isLoading
-                  ? const LinearProgressIndicator(
-                      color: Colors.blue,
-                    )
+                  ? const Center(
+                    child: LinearProgressIndicator(
+                        color: secondaryColor,
+                        backgroundColor: Colors.black54,
+                      ),
+                  )
                   : Container(),
             ),
           ],

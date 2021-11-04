@@ -7,6 +7,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
               child: const Text(
                 'Log in',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: backgroundColor,
                 ),
               ),
               style: buttonStyle,
@@ -43,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
               child: const Text(
                 'Register',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: backgroundColor,
                 ),
               ),
               style: buttonStyle,

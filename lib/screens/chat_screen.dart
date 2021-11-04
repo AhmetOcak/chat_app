@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:my_chat_app/constants.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key}) : super(key: key);
@@ -50,12 +51,15 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
+        backgroundColor: backgroundColor,
+        shadowColor: secondaryColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: secondaryColor,),
         ),
         actions: [
           IconButton(
@@ -66,6 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
             },
             icon: const Icon(
               Icons.close,
+              color: errorColor,
             ),
           ),
         ],
@@ -80,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
               decoration: const BoxDecoration(
                 border: Border(
                   top: BorderSide(
-                    color: Colors.blue,
+                    color: secondaryColor,
                     width: 2,
                   ),
                 ),
@@ -93,6 +98,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: TextField(
+                          style: const TextStyle(
+                            color: secondaryColor,
+                          ),
                           controller: _textEditingController,
                           onChanged: (value) {
                             messageText = value;
@@ -100,6 +108,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           decoration: const InputDecoration(
                             hintText: 'Type your message here ...',
                             border: InputBorder.none,
+                            hintStyle: TextStyle(
+                              color: secondaryColor,
+                            ),
                           ),
                         ),
                       ),
@@ -127,7 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         icon: const Icon(
                           Icons.send,
-                          color: Colors.blue,
+                          color: secondaryColor,
                           size: 40,
                         ),
                       ),
@@ -186,7 +197,7 @@ class DataStream extends StatelessWidget {
             final messageWidget = MessageBox(
               sender: messageSender,
               text: messageText,
-              color: Colors.green,
+              color: primaryVariantColor,
               crossAxisAlignment: CrossAxisAlignment.end,
               topleft: 25.0,
               topRight: 0.0,
@@ -196,7 +207,7 @@ class DataStream extends StatelessWidget {
             final messageWidget = MessageBox(
               sender: messageSender,
               text: messageText,
-              color: Colors.red,
+              color: primaryColor,
               crossAxisAlignment: CrossAxisAlignment.start,
               topleft: 0.0,
               topRight: 25.0,
@@ -246,8 +257,6 @@ class MessageBox extends StatelessWidget {
               bottomLeft: const Radius.circular(30.0),
               bottomRight: const Radius.circular(30.0),
             ),
-            elevation: 7.5,
-            shadowColor: color,
             color: color,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
@@ -263,7 +272,7 @@ class MessageBox extends StatelessWidget {
           Text(
             sender,
             style: const TextStyle(
-              color: Colors.black45,
+              color: secondaryColor,
             ),
           ),
         ],
