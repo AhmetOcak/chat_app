@@ -10,11 +10,11 @@ class RegisterionScreen extends StatefulWidget {
 }
 
 class _RegisterionScreenState extends State<RegisterionScreen> {
-
-  final _auth = FirebaseAuth.instance;  
+  final _auth = FirebaseAuth.instance;
 
   String email = '';
   String password = '';
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
               child: TextField(
                 onChanged: (value) {
                   password = value;
-                },  
+                },
                 decoration: textFieldDecoration.copyWith(
                   hintText: 'Enter your password ...',
                 ),
@@ -85,15 +85,24 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
               height: 50,
             ),
             ElevatedButton(
-              onPressed: () async{
-                try{
-                  final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                  if(newUser != null) {
+              onPressed: () async {
+                FocusScope.of(context).unfocus();
+                setState(() {
+                  isLoading = true;
+                });
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newUser != null) {
+                    setState(() {
+                      isLoading = false;
+                    });
                     Navigator.pushNamed(context, '/chat');
                   }
-                }
-                catch (e) {
-                  print(e);
+                } catch (e) {
+                  setState(() {
+                    isLoading = false;
+                  });
                 }
               },
               child: const Text(
@@ -103,6 +112,14 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
                 ),
               ),
               style: buttonStyle,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: isLoading
+                  ? const LinearProgressIndicator(
+                      color: Colors.blue,
+                    )
+                  : Container(),
             ),
           ],
         ),

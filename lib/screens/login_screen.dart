@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_chat_app/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,8 +10,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
+
   String email = '';
   String password = '';
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +84,25 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
             ),
             ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/chat');
+              onPressed: () async {
+                FocusScope.of(context).unfocus();
+                setState(() {
+                  isLoading = true;
+                });
+                try {
+                  final user = await _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  if (user != null) {
+                    setState(() {
+                      isLoading = false;
+                    });
+                    Navigator.pushNamed(context, '/chat');
+                  }
+                } catch (e) {
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
               },
               child: const Text(
                 'Log in',
@@ -90,6 +111,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               style: buttonStyle,
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: isLoading ? const LinearProgressIndicator(
+                color: Colors.blue,
+              ) : Container(),
             ),
           ],
         ),
