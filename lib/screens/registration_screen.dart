@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:my_chat_app/components/my_textfield.dart';
-import 'package:my_chat_app/components/my_elev_button.dart';
+import '../constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class RegisterionScreen extends StatelessWidget {
+class RegisterionScreen extends StatefulWidget {
   const RegisterionScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterionScreen> createState() => _RegisterionScreenState();
+}
+
+class _RegisterionScreenState extends State<RegisterionScreen> {
+
+  final _auth = FirebaseAuth.instance;  
+
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +45,19 @@ class RegisterionScreen extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: const MyTextField(
-                text: 'Enter your e-mail',
-                isItObscure: false,
+              child: TextField(
+                onChanged: (value) {
+                  email = value;
+                },
+                decoration: textFieldDecoration.copyWith(
+                  hintText: 'Enter your email ...',
+                ),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.emailAddress,
               ),
             ),
             const SizedBox(
@@ -44,15 +65,45 @@ class RegisterionScreen extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: const MyTextField(
-                text: 'Enter your password',
-                isItObscure: true,
+              child: TextField(
+                onChanged: (value) {
+                  password = value;
+                },  
+                decoration: textFieldDecoration.copyWith(
+                  hintText: 'Enter your password ...',
+                ),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
               ),
             ),
             const SizedBox(
               height: 50,
             ),
-            const MyElevatedButton(text: 'Register', routeName: '/chat'),
+            ElevatedButton(
+              onPressed: () async{
+                try{
+                  final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                  if(newUser != null) {
+                    Navigator.pushNamed(context, '/chat');
+                  }
+                }
+                catch (e) {
+                  print(e);
+                }
+              },
+              child: const Text(
+                'Register',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              style: buttonStyle,
+            ),
           ],
         ),
       ),

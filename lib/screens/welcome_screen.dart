@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_chat_app/components/my_elev_button.dart';
+import '../constants.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -15,22 +15,38 @@ class WelcomeScreen extends StatelessWidget {
               tag: 'logo',
               child: SizedBox(
                 child: Image.asset('assets/images/falling-star.png'),
-                height: MediaQuery.of(context).size.height / 2.5,
+                height: MediaQuery.of(context).size.height / 2.7,
               ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height / 10,
             ),
-            const MyElevatedButton(
-              text: 'Log in',
-              routeName: '/login',
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              child: const Text(
+                'Log in',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              style: buttonStyle,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height / 20,
             ),
-            const MyElevatedButton(
-              text: 'Register',
-              routeName: '/register',
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/register');
+              },
+              child: const Text(
+                'Register',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              style: buttonStyle,
             ),
           ],
         ),

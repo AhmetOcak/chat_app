@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:my_chat_app/components/my_textfield.dart';
-import 'package:my_chat_app/components/my_elev_button.dart';
+import 'package:my_chat_app/constants.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +41,19 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: const MyTextField(
-                text: 'Enter your e-mail',
-                isItObscure: false,
+              child: TextField(
+                onChanged: (value) {
+                  email = value;
+                },
+                decoration: textFieldDecoration.copyWith(
+                  hintText: 'Enter your email ...',
+                ),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.visiblePassword,
               ),
             ),
             const SizedBox(
@@ -44,17 +61,35 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: const MyTextField(
-                text: 'Enter your password',
-                isItObscure: true,
+              child: TextField(
+                onChanged: (value) {
+                  password = value;
+                },
+                decoration: textFieldDecoration.copyWith(
+                  hintText: 'Enter your password ...',
+                ),
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.visiblePassword,
               ),
             ),
             const SizedBox(
               height: 50,
             ),
-            const MyElevatedButton(
-              text: 'Log in',
-              routeName: '/chat',
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+              },
+              child: const Text(
+                'Log in',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              style: buttonStyle,
             ),
           ],
         ),

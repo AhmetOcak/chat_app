@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_chat_app/components/my_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({Key? key}) : super(key: key);
@@ -9,6 +9,27 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _auth = FirebaseAuth.instance;
+  late User loggedInUser;
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  } 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.close,),),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.close,
+            ),
+          ),
         ],
       ),
       body: SafeArea(
@@ -30,7 +56,10 @@ class _ChatScreenState extends State<ChatScreen> {
             Container(
               decoration: const BoxDecoration(
                 border: Border(
-                  top: BorderSide(color: Colors.blue, width: 2,),
+                  top: BorderSide(
+                    color: Colors.blue,
+                    width: 2,
+                  ),
                 ),
               ),
               child: Center(
@@ -38,10 +67,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Expanded(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          hintText: 'Type your message here',
-                          border: InputBorder.none,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Type your message here ...',
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
                     ),
