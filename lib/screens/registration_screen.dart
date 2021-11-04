@@ -113,6 +113,9 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
               ),
               style: buttonStyle,
             ),
+            const SizedBox(
+              height: 15,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: isLoading
