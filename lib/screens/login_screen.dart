@@ -11,8 +11,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String email = '';
   String password = '';
@@ -53,42 +53,56 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: TextField(
-                controller: _emailController,
-                onChanged: (value) {
-                  email = value;
-                },
-                decoration: textFieldDecoration.copyWith(
-                  hintText: 'Enter your email',
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    boxShadow,
+                  ],
                 ),
-                style: const TextStyle(
-                  color: backgroundColor,
-                  fontSize: 15,
+                child: TextField(
+                  controller: _emailController,
+                  onChanged: (value) {
+                    email = value;
+                  },
+                  decoration: textFieldDecoration.copyWith(
+                    hintText: 'Enter your email',
+                  ),
+                  style: const TextStyle(
+                    color: backgroundColor,
+                    fontSize: 15,
+                  ),
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.visiblePassword,
               ),
             ),
             const SizedBox(
-              height: 25,
+              height: 35,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: TextField(
-                controller: _passwordController,
-                onChanged: (value) {
-                  password = value;
-                },
-                decoration: textFieldDecoration.copyWith(
-                  hintText: 'Enter your password',
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    boxShadow,
+                  ],
                 ),
-                style: const TextStyle(
-                  color: backgroundColor,
-                  fontSize: 15,
+                child: TextField(
+                  controller: _passwordController,
+                  onChanged: (value) {
+                    password = value;
+                  },
+                  decoration: textFieldDecoration.copyWith(
+                    hintText: 'Enter your password',
+                  ),
+                  style: const TextStyle(
+                    color: backgroundColor,
+                    fontSize: 15,
+                  ),
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                 ),
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
               ),
             ),
             const SizedBox(

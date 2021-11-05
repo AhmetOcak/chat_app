@@ -11,8 +11,8 @@ class RegisterionScreen extends StatefulWidget {
 
 class _RegisterionScreenState extends State<RegisterionScreen> {
   final _auth = FirebaseAuth.instance;
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String email = '';
   String password = '';
@@ -29,7 +29,7 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back_ios_rounded),
+          icon: const Icon(Icons.arrow_back_ios_rounded, color: secondaryColor,),
         ),
       ),
       body: Center(
@@ -50,40 +50,54 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: TextField(
-                onChanged: (value) {
-                  email = value;
-                },
-                decoration: textFieldDecoration.copyWith(
-                  hintText: 'Enter your email ...',
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    boxShadow,
+                  ]
                 ),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
+                child: TextField(
+                  onChanged: (value) {
+                    email = value;
+                  },
+                  decoration: textFieldDecoration.copyWith(
+                    hintText: 'Enter your email ...',
+                  ),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.emailAddress,
               ),
             ),
             const SizedBox(
-              height: 25,
+              height: 35,
             ),
             SizedBox(
               width: MediaQuery.of(context).size.height / 3,
-              child: TextField(
-                onChanged: (value) {
-                  password = value;
-                },
-                decoration: textFieldDecoration.copyWith(
-                  hintText: 'Enter your password ...',
+              child: Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    boxShadow,
+                  ],
                 ),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
+                child: TextField(
+                  onChanged: (value) {
+                    password = value;
+                  },
+                  decoration: textFieldDecoration.copyWith(
+                    hintText: 'Enter your password ...',
+                  ),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                 ),
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
               ),
             ),
             const SizedBox(

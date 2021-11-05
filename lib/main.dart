@@ -6,6 +6,7 @@ import 'package:my_chat_app/screens/registration_screen.dart';
 import 'package:my_chat_app/screens/welcome_screen.dart';
 
 void main() async {
+  // paketleri yüklerken meydana gelen hatayı gideren kod parçası 10-11
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 

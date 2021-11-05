@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print(e);
     }
   }
-
+    /*
   void dataStream() async {
     await for (var snapshot in _firestore.collection('messages').snapshots()) {
       for (var message in snapshot.docs) {
@@ -41,7 +41,7 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     }
   }
-
+*/
   @override
   void initState() {
     super.initState();
@@ -64,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              dataStream();
+              //dataStream();
               _auth.signOut();
               Navigator.pop(context);
             },
@@ -173,14 +173,19 @@ class DataStream extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Center(
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
-              child: const Padding(
-                padding: EdgeInsets.only(bottom: 50),
-                child: LinearProgressIndicator(
-                  color: Colors.blue,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: const Padding(
+                    padding: EdgeInsets.only(bottom: 50),
+                    child: LinearProgressIndicator(
+                      color: secondaryColor,
+                      backgroundColor: Colors.black54,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           );
         }
