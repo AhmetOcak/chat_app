@@ -57,6 +57,8 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
                   ]
                 ),
                 child: TextField(
+                  cursorColor: secondaryColor,
+                  cursorWidth: 2,
                   onChanged: (value) {
                     email = value;
                   },
@@ -84,6 +86,8 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
                   ],
                 ),
                 child: TextField(
+                  cursorColor: secondaryColor,
+                  cursorWidth: 2,
                   onChanged: (value) {
                     password = value;
                   },

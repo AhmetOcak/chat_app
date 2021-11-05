@@ -60,6 +60,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 child: TextField(
+                  cursorColor: secondaryColor,
+                  cursorWidth: 2,
                   controller: _emailController,
                   onChanged: (value) {
                     email = value;
@@ -88,6 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 child: TextField(
+                  cursorColor: secondaryColor,
+                  cursorWidth: 2,
                   controller: _passwordController,
                   onChanged: (value) {
                     password = value;
