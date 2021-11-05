@@ -63,7 +63,7 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
                     email = value;
                   },
                   decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your email ...',
+                    hintText: 'Enter your email',
                   ),
                   style: const TextStyle(
                     color: Colors.black,
@@ -92,7 +92,7 @@ class _RegisterionScreenState extends State<RegisterionScreen> {
                     password = value;
                   },
                   decoration: textFieldDecoration.copyWith(
-                    hintText: 'Enter your password ...',
+                    hintText: 'Enter your password',
                   ),
                   style: const TextStyle(
                     color: Colors.black,
