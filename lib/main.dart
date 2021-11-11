@@ -17,7 +17,7 @@ void main() async {
       '/welcome': (context) => const WelcomeScreen(),
       '/login': (context) => const LoginScreen(),
       '/register': (context) => const RegisterionScreen(),
-      '/chat': (context) => ChatScreen(),
+      '/chat': (context) => const ChatScreen(),
     },
   ));
 }
